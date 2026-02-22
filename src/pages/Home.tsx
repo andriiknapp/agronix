@@ -1,8 +1,5 @@
-// src/pages/Home.tsx
-import Navbar from "../Layout/Navbar";
 import HeroText from "../components/HeroText";
 import LeadForm from "../components/LeadForm";
-import Footer from "../Layout/Footer";
 import ProductSection from "../components/ProductSection";
 import { ShieldCheck, Truck, Clock, Phone } from "lucide-react";
 import { useEffect, useState } from "react";

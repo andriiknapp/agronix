@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './LegalPages.css';
 
 export const PrivacyPolicy: React.FC = () => {
