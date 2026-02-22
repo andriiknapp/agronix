@@ -9,13 +9,13 @@
   }
   
   .navbar-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 16px;
+    width: 100%; 
+    padding: 0 24px; 
+    
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    justify-content: space-between; 
+    gap: 0; 
   }
   
   .navbar-brand {
@@ -37,8 +37,7 @@
   
   .navbar-links {
     display: none;
-    flex: 1;
-    justify-content: flex-end;
+    justify-content: flex-end; 
   }
   
   @media (min-width: 768px) {

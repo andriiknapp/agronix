@@ -137,7 +137,6 @@
     font-weight: 500;
   }
   
-  /* --- АДАПТИВНОСТЬ --- */
   @media (max-width: 900px) {
     .footer-grid {
       grid-template-columns: 1fr 1fr;
@@ -163,24 +162,24 @@
     .footer-grid {
       grid-template-columns: 1fr;
       gap: 2.5rem;
-      text-align: center;
+      text-align: left;
     }
   
     .contact-list {
-      align-items: center;
+      align-items: left;
     }
     
     .footer-nav {
-      align-items: center;
+      align-items: left;
     }
   
     .footer-bottom {
       flex-direction: column;
-      text-align: center;
+      text-align: left;
     }
     
     .legal-info {
-      justify-content: center;
+      justify-content: left;
       flex-direction: column;
       gap: 0.4rem;
     }
