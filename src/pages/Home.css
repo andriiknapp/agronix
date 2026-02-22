@@ -1,0 +1,246 @@
+/* src/pages/Home.css */
+
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #E9F2E9;
+}
+
+.main-content {
+    flex-grow: 1;
+    /* max-width: 1280px; */
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 ;
+    position: relative;
+    z-index: 10;
+}
+
+@media (min-width: 640px) {
+    .main-content {
+        padding: 0 0px;
+    }
+}
+
+/* Grid Layout */
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    min-height: 90vh;
+    padding: 0 0 36px 0;
+}
+
+@media (min-width: 1024px) {
+    .home-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 64px;
+        padding: 16px 0px 36px 36px;
+    }
+
+    .home-left-column {
+        grid-column: span 7;
+        grid-row: 1;
+    }
+
+    .home-right-column {
+        grid-column: span 5;
+        grid-row: 1 / span 2; /* Форма растягивается на высоту текста + трастов */
+    }
+
+    .trust-signals-container {
+        grid-column: span 7;
+        grid-row: 2; /* Трасты встают под текст (вторая строка) */
+    }
+}
+
+/* Left Column */
+.home-left-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 32px;
+    padding-bottom: 16px;
+}
+
+@media (min-width: 1024px) {
+    .home-left-column {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* Trust Signals Container & Grid */
+.trust-signals-container {
+    width: 100%;
+}
+
+.trust-signals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 8px;
+    margin-top: 0px;
+}
+
+/* Убираем старый медиа-запрос для 640px, так как 3 в ряд теперь везде */
+
+.trust-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px; /* Меньше отступ между иконкой и текстом */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 8px 4px; /* Уменьшенные отступы внутри карточки */
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+@media (min-width: 1024px) {
+    .trust-card {
+        align-items: flex-start;
+        text-align: left;
+        padding: 16px;
+        gap: 12px;
+        background-color: rgba(255, 255, 255, 0.4);
+    }
+}
+
+.trust-icon-wrapper {
+    padding: 6px; /* Меньше фон вокруг иконки */
+    background-color: #dcfce7;
+    border-radius: 50%;
+    color: #2E7D32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trust-icon {
+    width: 20px; /* Уменьшенная иконка */
+    height: 20px;
+}
+
+@media (min-width: 1024px) {
+    .trust-icon-wrapper {
+        padding: 12px;
+    }
+    .trust-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.trust-content {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.trust-title {
+    display: block;
+    font-weight: 700;
+    color: #111827;
+    font-size: 11px; /* Меньший шрифт заголовка для мобильных */
+    margin-bottom: 2px;
+}
+
+@media (min-width: 1024px) {
+    .trust-title {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+}
+
+.trust-description {
+    font-size: 9px; /* Меньший шрифт описания */
+    color: #4b5563;
+    font-weight: 500;
+}
+
+@media (min-width: 1024px) {
+    .trust-description {
+        font-size: 13px;
+    }
+}
+
+/* Right Column (Form) */
+.home-right-column {
+    padding-top: 0;
+    padding-bottom: 32px;
+}
+
+@media (min-width: 1024px) {
+    .home-right-column {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* Floating Call Button (Mobile) */
+.floating-call-btn {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #2E7D32;
+    border: none;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+    transition: all 0.3s ease;
+    animation: slideInFromBottom 0.3s ease-out, fadeIn 0.3s ease-out;
+}
+
+.floating-call-btn:hover {
+    background-color: #1B5E20;
+    transform: translateY(-2px);
+}
+
+.floating-call-btn:active {
+    transform: translateY(0);
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Hide on desktop */
+@media (min-width: 1024px) {
+    .floating-call-btn {
+        display: none;
+    }
+}
+
+/* Animations */
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(32px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

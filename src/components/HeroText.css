@@ -1,0 +1,147 @@
+/* src/components/HeroText.css */
+
+.hero-header {
+  width: 100%;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827; /* Gray 900 */
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-highlight {
+  display: block;
+  color: #15803d; /* Green 700 */
+  font-weight: 500;
+  margin-top: 0.5rem;
+  font-size: 0.85em;
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  color: #4b5563; /* Gray 600 */
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hidden-mobile {
+  display: none;
+}
+
+/* Actions */
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base Button Style */
+.btn-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 9999px; /* Pill shape */
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 52px;
+  width: 100%;
+  max-width: 340px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn-icon {
+  flex-shrink: 0;
+}
+
+/* Primary Button (Call) - White with Green Text & Shadow */
+.btn-white-primary {
+  background-color: #ffffff;
+  color: #15803d;
+  border: 1px solid rgba(21, 128, 61, 0.1); /* Subtle border */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.btn-white-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(21, 128, 61, 0.1), 0 4px 6px -2px rgba(21, 128, 61, 0.05);
+  border-color: rgba(21, 128, 61, 0.3);
+}
+
+.btn-white-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button (Ask Price) - White/Transparent with Dark Text */
+.btn-white-secondary {
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid rgba(229, 231, 235, 1); /* Gray 200 border */
+}
+
+.btn-white-secondary:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+/* Desktop Responsiveness */
+@media (min-width: 768px) {
+  .hero-header {
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .hero-content {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: 3.75rem; /* 60px */
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-left: 0;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .btn-hero {
+    width: auto;
+  }
+
+  .hidden-mobile {
+    display: inline;
+  }
+}
