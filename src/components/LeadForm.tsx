@@ -110,7 +110,7 @@ const DELIVERY_OPTIONS = ["1-2 dni", "7 dni", "14 dni", "Inny termin"];
 
 type DropdownType = "product" | "voivodeship" | "delivery" | null;
 
-const LeadForm = forwardRef<LeadFormRef>((props, ref) => {
+const LeadForm = forwardRef<LeadFormRef>((_props, ref) => {
   const navigate = useNavigate();
   
   const productRef = useRef<HTMLDivElement>(null);

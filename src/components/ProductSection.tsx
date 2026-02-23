@@ -141,12 +141,6 @@ export default function ProductSection({ onNavigateToForm }: { onNavigateToForm?
   const [isExpanded, setIsExpanded] = useState(false);
   const displayedProducts = isExpanded ? PRODUCTS : PRODUCTS.slice(0, 4);
 
-  const handleProductClick = (productName: string) => {
-    window.dispatchEvent(
-      new CustomEvent("focusLeadForm", { detail: { productName } })
-    );
-  };
-
   return (
     <section className="product-section" id="products">
       <div className="container">
