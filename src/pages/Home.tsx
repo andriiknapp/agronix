@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import HeroText from "../components/HeroText";
 import LeadForm from "../components/LeadForm";
 import ProductSection from "../components/ProductSection";
@@ -7,6 +8,7 @@ import "./Home.css";
 
 export default function Home() {
   const [showFloatingBtn, setShowFloatingBtn] = useState(false);
+  const formRef = useRef<any>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +18,19 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavigateToForm = () => {
+    // Находим элемент формы по ID и скроллим к нему
+    const formElement = document.getElementById("lead-form-section");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    
+    // Запускаем анимацию через ref
+    if (formRef.current) {
+      formRef.current.highlightForm();
+    }
+  };
+
   return (
     <div className="home-page">      
       <main className="main-content">
@@ -23,12 +38,12 @@ export default function Home() {
           
           {/* 1. Левая колонка (Только текст) */}
           <div className="home-left-column">
-            <HeroText />
+          <HeroText onNavigateToForm={handleNavigateToForm} />
           </div>
 
           {/* 2. Правая колонка (Форма) */}
           <div className="home-right-column">
-            <LeadForm />
+          <LeadForm ref={formRef} />
           </div>
           
           {/* 3. Trust Signals (Теперь идут после формы в HTML, но на десктопе встанут слева через CSS) */}
@@ -68,7 +83,7 @@ export default function Home() {
 
         </div>
 
-        <ProductSection />
+        <ProductSection onNavigateToForm={handleNavigateToForm} />
       </main>
 
       {/* Floating Action Button for Mobile */}

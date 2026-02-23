@@ -1,77 +1,102 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertTriangle, Send, ChevronDown } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import "./LeadForm.css";
 
+export interface LeadFormRef {
+  highlightForm: () => void;
+}
+
 const PRODUCTS = [
-  { name: "Sól potasowa 60%", image: "https://nodral.com/upload/iblock/5a6/v4d1mzuajfmwm31icvtj2aeq3bcowx9r.webp" },
-  { name: "Korn-KALI K+S", image: "https://sklepfarmera.pl/media/catalog/product/1/1/119160.jpg?width=454&height=454&store=farmer_pl&image-type=image" },
-  { name: "Mocznik granula N46", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhMp7TiFMPMvg5MQ6GkoEAFKEYmn2HKB1DDQ&s" },
-  { name: "Mocznik Prill N46", image: "https://api.eagro.pl/api/products/88/thumbnail/56" },
-  { name: "Saletra 34,4%", image: "https://www.agrospec.pl/img/6026/6026.jpg" },
-  { name: "Fosforan Amonu (10-46)", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtsAL1eRiVsfaT3-fNrWHqUmLHwOdCjTBlTA&s" },
-  { name: "DAP 18-46", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeA8OWCN5YUmGz6vTOja6BO3dP0wD3sXOMYA&s" },
-  { 
-    name: "Salmiak N 24%", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Sól potasowa 60%",
+    image: "https://nodral.com/upload/iblock/5a6/v4d1mzuajfmwm31icvtj2aeq3bcowx9r.webp",
   },
-  { 
-    name: "Saletrosan 26", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Korn-KALI K+S",
+    image: "https://sklepfarmera.pl/media/catalog/product/1/1/119160.jpg?width=454&height=454&store=farmer_pl&image-type=image",
   },
-  { 
-    name: "Siarczan amonu", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Mocznik granula N46",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhMp7TiFMPMvg5MQ6GkoEAFKEYmn2HKB1DDQ&s",
   },
-  { 
-    name: "Siarczan magnezu", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Mocznik Prill N46",
+    image: "https://i.ebayimg.com/thumbs/images/g/6AMAAOSwivhhpO2W/s-l500.jpg",
   },
-  { 
-    name: "RSM 32%", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Saletra 34,4%",
+    image: "https://www.agrospec.pl/img/6026/6026.jpg",
   },
-  { 
-    name: "Kreda granulowana", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Fosforan Amonu (10-46)",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtsAL1eRiVsfaT3-fNrWHqUmLHwOdCjTBlTA&s",
   },
-  { 
-    name: "NS 33-12", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "DAP 18-46",
+    image: "https://nodral.com/upload/iblock/d0b/xbkf5xb4narywbta932fk41hp9z6kte0.webp",
   },
-  { 
-    name: "Rotogran 7-20-30", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Salmiak N 24%",
+    image: "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/467865541_8841558665891214_5239872888075804261_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=HIA39ILTbYMQ7kNvwGVi7oo&_nc_oc=AdnYbrbegvbQb9RC7Y0dBRsvVDmIKLY_y1xCIxAxUm4tGf47SWRfZXfeAOmi_-z3N9m0-_zR6wnklqhz7heYmPVw&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=hsSB5J_fZPmeY8z3YNHEig&oh=00_AfvpCat-Ki0LztsP0wUYIRZ-fT992B_8eBGx0nIr8EcHCA&oe=69A2726A",
   },
-  { 
-    name: "NPK 5-15-30", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Saletrosan 26",
+    image: "https://terragrain.eu/wp-content/uploads/2018/11/saletrosan26-dywan90-1-zm.jpg",
   },
-  { 
-    name: "NPK (S) 6-20-30 (5)", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Siarczan amonu",
+    image: "https://sklep-galvet.pl/images/siarczan-21makro0.jpg",
   },
-  { 
-    name: "NPK 7-19-29+1S", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Siarczan magnezu",
+    image: "https://gemini.pl/poradnik/wp-content/uploads/2022/02/AdobeStock_204539681-784x441.jpeg",
   },
-  { 
-    name: "NPK (S) 8-20-30", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "RSM 32%",
+    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg",
   },
-  { 
-    name: "NPK 15-15-15", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "Kreda granulowana",
+    image: "https://martus.com.pl/wp-content/uploads/2022/03/kreda-granulowana.jpg",
   },
-  { 
-    name: "NPK 10-26-26", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
+  {
+    name: "NS 33-12",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhrAizJv6yTN4nRYJGMn2pkSt1I5nKhFGhw&s",
   },
-  { 
-    name: "Inny nawóz", 
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg" 
-  }
+  {
+    name: "Rotogran 7-20-30",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuk8FbDBWl_hD405fpsmDuZJrvR3IyygRTog&s",
+  },
+  {
+    name: "NPK 5-15-30",
+    image: "https://static.wixstatic.com/media/9848f7_5b8b534205514f24a14e3d6421590a85~mv2.png/v1/fill/w_640,h_474,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/9848f7_5b8b534205514f24a14e3d6421590a85~mv2.png",
+  },
+  {
+    name: "NPK (S) 6-20-30 (5)",
+    image: "https://www.zielonowogrodzie.pl/environment/cache/images/productGfx_13501_616_616/5dd7c615467b9701ad7ad3465b21.webp",
+  },
+  {
+    name: "NPK 7-19-29+1S",
+    image: "https://ireland.apollo.olxcdn.com/v1/files/458acudtp2ha3-PL/image;s=823x1097",
+  },
+  {
+    name: "NPK (S) 8-20-30",
+    image: "https://nodral.com/upload/iblock/fda/4wyd6mvqcfqo8bxl3rof5m8usoqx26i1.webp",
+  },
+  {
+    name: "NPK 15-15-15",
+    image: "https://nodral.com/upload/iblock/f30/qep2jbeh8b031mpbsgwq7fdr3mfct9bh.webp",
+  },
+  {
+    name: "NPK 10-26-26",
+    image: "https://djwagro.pl/wp-content/uploads/brizy/imgs/NPK-10-26-26-945x1260x0x422x945x289x1694440652.jpg",
+  },
+  {
+    name: "Inny nawóz",
+    image: "https://cdn-icons-png.flaticon.com/512/2740/2740648.png",
+  },
 ];
 
 const VOIVODESHIPS = [
@@ -85,16 +110,14 @@ const DELIVERY_OPTIONS = ["1-2 dni", "7 dni", "14 dni", "Inny termin"];
 
 type DropdownType = "product" | "voivodeship" | "delivery" | null;
 
-export default function LeadForm() {
+const LeadForm = forwardRef<LeadFormRef>((props, ref) => {
   const navigate = useNavigate();
   
-  // Refs для обработки клика вне элемента
   const productRef = useRef<HTMLDivElement>(null);
   const voivodeshipRef = useRef<HTMLDivElement>(null);
   const deliveryRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Единое состояние для управления тем, какой список сейчас открыт
   const [openDropdown, setOpenDropdown] = useState<DropdownType>(null);
   
   const [formData, setFormData] = useState({
@@ -102,7 +125,7 @@ export default function LeadForm() {
     customProduct: "",
     voivodeship: "",
     deliveryDate: "",
-    customDeliveryDate: "", // Новое поле для ввода своего термина
+    customDeliveryDate: "",
     phone: "",
     rodo: false
   });
@@ -110,8 +133,15 @@ export default function LeadForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [isHighlighted, setIsHighlighted] = useState(false);
 
-  // Обработка клика вне выпадающих списков
+  useImperativeHandle(ref, () => ({
+    highlightForm: () => {
+      setIsHighlighted(true);
+      setTimeout(() => setIsHighlighted(false), 1000);
+    }
+  }));
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (openDropdown === "product" && productRef.current && !productRef.current.contains(event.target as Node)) setOpenDropdown(null);
@@ -129,24 +159,20 @@ export default function LeadForm() {
   const validate = () => {
     const newErrors: Record<string, string> = {};
     
-    // Валидация продукта
     if (!formData.product) {
       newErrors.product = "Proszę wybrać produkt";
     } else if (formData.product === "Inny nawóz" && !formData.customProduct.trim()) {
       newErrors.customProduct = "Proszę wpisać nazwę nawozu";
     }
 
-    // Валидация воеводства
     if (!formData.voivodeship) newErrors.voivodeship = "Proszę wybrać województwo";
 
-    // Валидация термина доставки
     if (!formData.deliveryDate) {
       newErrors.deliveryDate = "Proszę wybrać termin dostawy";
     } else if (formData.deliveryDate === "Inny termin" && !formData.customDeliveryDate.trim()) {
       newErrors.customDeliveryDate = "Proszę podać preferowany termin";
     }
 
-    // Валидация телефона
     const phoneRegex = /^[0-9\+\-\s]{9,15}$/;
     if (!formData.phone) {
       newErrors.phone = "Proszę podać numer telefonu";
@@ -154,7 +180,6 @@ export default function LeadForm() {
       newErrors.phone = "Niepoprawny format numeru";
     }
 
-    // Валидация RODO
     if (!formData.rodo) newErrors.rodo = "Zgoda jest wymagana";
 
     setErrors(newErrors);
@@ -169,16 +194,7 @@ export default function LeadForm() {
 
     setIsSubmitting(true);
 
-    // Подготовка финальных значений для отправки
-    const finalProductName = formData.product === "Inny nawóz" ? formData.customProduct : formData.product;
-    const finalDeliveryDate = formData.deliveryDate === "Inny termin" ? formData.customDeliveryDate : formData.deliveryDate;
-
-    const hiddenProductInput = document.querySelector('input[name="product_final"]') as HTMLInputElement;
-    if (hiddenProductInput) hiddenProductInput.value = finalProductName;
-
-    const hiddenDeliveryInput = document.querySelector('input[name="delivery_date_final"]') as HTMLInputElement;
-    if (hiddenDeliveryInput) hiddenDeliveryInput.value = finalDeliveryDate;
-
+    // Убрали ручное управление DOM (document.querySelector), так как теперь значения привязаны напрямую в JSX
     if (formRef.current) {
       emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -187,7 +203,14 @@ export default function LeadForm() {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(() => {
-        navigate("/thank-you");
+        navigate("/thank-you", { 
+          state: { 
+            product: finalProductName, 
+            voivodeship: formData.voivodeship, 
+            delivery: finalDeliveryDate,
+            phone: formData.phone 
+          } 
+        });
       })
       .catch((err) => {
         console.error("FAILED...", err);
@@ -199,8 +222,15 @@ export default function LeadForm() {
 
   const selectedProduct = PRODUCTS.find(p => p.name === formData.product);
 
+  // Вычисляем финальные значения для отправки
+  const finalProductName = formData.product === "Inny nawóz" ? formData.customProduct : formData.product;
+  const finalDeliveryDate = formData.deliveryDate === "Inny termin" ? formData.customDeliveryDate : formData.deliveryDate;
+
   return (
-    <div className="lead-form-wrapper">
+    <div 
+      id="lead-form-section" 
+      className={`lead-form-wrapper ${isHighlighted ? "form-highlighted" : ""}`}
+    >
       <div className="warning-box">
         <AlertTriangle className="warning-icon" />
         <p className="warning-text">
@@ -209,7 +239,6 @@ export default function LeadForm() {
       </div>
 
       <form ref={formRef} onSubmit={handleSubmit} className="lead-form" name="contact-form">
-
         {/* 1. PRODUCT DROPDOWN */}
         <div className="form-group">
           <label className="form-label">Produkt</label>
@@ -261,7 +290,9 @@ export default function LeadForm() {
               {errors.customProduct && <p className="error-message">{errors.customProduct}</p>}
             </div>
           )}
-          <input type="hidden" name="product_final" value="" />
+          
+          {/* ИСПРАВЛЕНО: name="product" вместо "product_final", value привязан к логике */}
+          <input type="hidden" name="product" value={finalProductName} />
         </div>
 
         {/* 2. VOIVODESHIP DROPDOWN */}
@@ -349,7 +380,9 @@ export default function LeadForm() {
               {errors.customDeliveryDate && <p className="error-message">{errors.customDeliveryDate}</p>}
             </div>
           )}
-          <input type="hidden" name="delivery_date_final" value="" />
+          
+          {/* ИСПРАВЛЕНО: name="delivery_date" вместо "delivery_date_final", value привязан к логике */}
+          <input type="hidden" name="delivery_date" value={finalDeliveryDate} />
         </div>
 
         {/* PHONE */}
@@ -409,4 +442,6 @@ export default function LeadForm() {
       </form>
     </div>
   );
-}
+});
+
+export default LeadForm;

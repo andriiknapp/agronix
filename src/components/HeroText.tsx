@@ -1,9 +1,20 @@
 import { Phone, ChevronRight } from "lucide-react";
 import "./HeroText.css";
 
-export default function HeroText() {
-  const scrollToForm = () => {
-    document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
+// Добавляем интерфейс для пропсов
+interface HeroTextProps {
+  onNavigateToForm?: () => void;
+}
+
+export default function HeroText({ onNavigateToForm }: HeroTextProps) {
+  // Локальная функция теперь вызывает переданный колбэк
+  const handleButtonClick = () => {
+    if (onNavigateToForm) {
+      onNavigateToForm();
+    } else {
+      // Фоллбэк, если проп не передан (просто скролл)
+      document.getElementById("lead-form-section")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -28,7 +39,7 @@ export default function HeroText() {
             <span>Zadzwoń teraz</span>
           </a>
           <button 
-            onClick={scrollToForm}
+            onClick={handleButtonClick}
             className="btn-hero btn-white-secondary"
             data-testid="button-scroll-to-form"
           >
