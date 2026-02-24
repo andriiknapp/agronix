@@ -13,7 +13,7 @@ export default function Navbar() {
 
         <div className="navbar-links">
           <a 
-            href="https://dsdmanagment.org" 
+            href="https://dsdmanagement.org" 
             target="_blank" 
             rel="noopener noreferrer"
             className="nav-link"

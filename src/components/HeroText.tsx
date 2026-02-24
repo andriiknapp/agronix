@@ -1,18 +1,15 @@
 import { Phone, ChevronRight } from "lucide-react";
 import "./HeroText.css";
 
-// Добавляем интерфейс для пропсов
 interface HeroTextProps {
   onNavigateToForm?: () => void;
 }
 
 export default function HeroText({ onNavigateToForm }: HeroTextProps) {
-  // Локальная функция теперь вызывает переданный колбэк
   const handleButtonClick = () => {
     if (onNavigateToForm) {
       onNavigateToForm();
     } else {
-      // Фоллбэк, если проп не передан (просто скролл)
       document.getElementById("lead-form-section")?.scrollIntoView({ behavior: "smooth" });
     }
   };

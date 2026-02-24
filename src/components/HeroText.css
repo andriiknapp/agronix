@@ -1,4 +1,14 @@
-/* src/components/HeroText.css */
+/* Animation Keyframes */
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .hero-header {
   width: 100%;
@@ -17,15 +27,19 @@
 .hero-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #111827; /* Gray 900 */
+  color: #111827;
   line-height: 1.15;
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
+  
+  /* Animation */
+  opacity: 0;
+  animation: heroSlideUp 0.5s ease-out forwards;
 }
 
 .hero-highlight {
   display: block;
-  color: #15803d; /* Green 700 */
+  color: #15803d;
   font-weight: 500;
   margin-top: 0.5rem;
   font-size: 0.85em;
@@ -33,13 +47,18 @@
 
 .hero-subtitle {
   font-size: 1.125rem;
-  color: #4b5563; /* Gray 600 */
+  color: #4b5563;
   line-height: 1.6;
   margin-bottom: 2.5rem;
   font-weight: 400;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+
+  /* Animation - Staggered */
+  opacity: 0;
+  animation: heroSlideUp 0.5s ease-out forwards;
+  animation-delay: 0.1s;
 }
 
 .hidden-mobile {
@@ -53,6 +72,11 @@
   gap: 1rem;
   align-items: center;
   justify-content: center;
+
+  /* Animation - Staggered */
+  opacity: 0;
+  animation: heroSlideUp 0.5s ease-out forwards;
+  animation-delay: 0.2s;
 }
 
 /* Base Button Style */
@@ -64,7 +88,7 @@
   padding: 14px 28px;
   font-size: 1rem;
   font-weight: 500;
-  border-radius: 9999px; /* Pill shape */
+  border-radius: 9999px;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,11 +102,11 @@
   flex-shrink: 0;
 }
 
-/* Primary Button (Call) - White with Green Text & Shadow */
+/* Primary Button (Call) */
 .btn-white-primary {
   background-color: #ffffff;
   color: #15803d;
-  border: 1px solid rgba(21, 128, 61, 0.1); /* Subtle border */
+  border: 1px solid rgba(21, 128, 61, 0.1);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
@@ -96,11 +120,11 @@
   transform: translateY(0);
 }
 
-/* Secondary Button (Ask Price) - White/Transparent with Dark Text */
+/* Secondary Button (Ask Price) */
 .btn-white-secondary {
   background-color: #ffffff;
   color: #374151;
-  border: 1px solid rgba(229, 231, 235, 1); /* Gray 200 border */
+  border: 1px solid rgba(229, 231, 235, 1);
 }
 
 .btn-white-secondary:hover {
@@ -124,7 +148,7 @@
   }
 
   .hero-title {
-    font-size: 3.75rem; /* 60px */
+    font-size: 3.75rem;
   }
 
   .hero-subtitle {
@@ -143,5 +167,16 @@
 
   .hidden-mobile {
     display: inline;
+  }
+}
+
+/* Accessibility: Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-title,
+  .hero-subtitle,
+  .hero-actions {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

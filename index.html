@@ -1,10 +1,78 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    
+    <!-- Android / PWA icon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+    
+    <!-- Apple iOS Home Screen icon -->
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- 2. VIEWPORT & BASIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>agronix</title>
+    
+    <!-- 3. SEO: Title Tag (Fertilizer Focused) -->
+    <title>Agronix - Sklep z Nawozami Rolniczymi | NPK, Mocznik, Saletra | agronix.co</title>
+
+    <!-- 4. SEO: Meta Description -->
+    <meta name="description" content="Agronix to Twój partner w rolnictwie. Oferujemy szeroki wybór nawozów: NPK, mocznik, saletra, wapno i mikroelementy. Wysoka jakość, konkurencyjne ceny i szybka dostawa dla polskich rolników." />
+    
+    <!-- 5. SEO: Keywords -->
+    <meta name="keywords" content="nawozy sztuczne, sklep rolniczy, nawozy NPK, mocznik 46, saletra amonowa, wapno granulowane, nawozenie roślin, agronix, polska" />
+
+    <!-- 6. SEO: Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- 7. SEO: Canonical -->
+    <link rel="canonical" href="https://agronix.co/" />
+
+    <!-- 8. Social Media: Open Graph (Facebook/LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://agronix.co/" />
+    <meta property="og:title" content="Agronix - Profesjonalne Nawozy Rolnicze" />
+    <meta property="og:description" content="Kompleksowa oferta nawozów dla upraw polowych i sadowniczych. Sprawdź naszą ofertę NPK i nawozów azotowych." />
+    <meta property="og:image" content="https://agronix.co/og-image.jpg" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="Agronix" />
+
+    <!-- 9. Social Media: Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Agronix - Profesjonalne Nawozy Rolnicze" />
+    <meta name="twitter:description" content="Kompleksowa oferta nawozów dla upraw polowych i sadowniczych." />
+    <meta name="twitter:image" content="https://agronix.co/twitter-image.jpg" />
+
+    <!-- 10. Schema.org: LocalBusiness / Store -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Agronix",
+        "url": "https://agronix.co",
+        "logo": "https://agronix.co/apple-touch-icon.png",
+        "description": "Sklep internetowy z nawozami rolniczymi. Sprzedaż nawozów NPK, azotowych, potasowych i wapniowych.",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "PL",
+          "addressRegion": "Polska"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "areaServed": "PL",
+          "availableLanguage": "Polish"
+        },
+        "sells": {
+          "@type": "Product",
+          "category": "Fertilizer"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -89,7 +89,7 @@ export default function Home() {
       {/* Floating Action Button for Mobile */}
       {showFloatingBtn && (
         <a 
-          href="tel:+48000000000" 
+          href="tel:+48510513337" 
           className="floating-call-btn"
           data-testid="button-floating-call"
         >
