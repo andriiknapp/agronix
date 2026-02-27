@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AlertTriangle, Send, ChevronDown } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import "./LeadForm.css";
+import RSM from "../assets/rsm32.png";
 
 export interface LeadFormRef {
   highlightForm: () => void;
@@ -55,7 +56,7 @@ const PRODUCTS = [
   },
   {
     name: "RSM 32%",
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg",
+    image: RSM,
   },
   {
     name: "Kreda granulowana",

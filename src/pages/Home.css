@@ -179,7 +179,6 @@
     }
 }
 
-/* Floating Call Button (Mobile) */
 .floating-call-btn {
     position: fixed;
     bottom: 16px;
@@ -201,15 +200,29 @@
     z-index: 100;
     transition: all 0.3s ease;
     animation: slideInFromBottom 0.3s ease-out, fadeIn 0.3s ease-out;
+    
+    /* НОВЫЕ СТРОКИ ДЛЯ ИСПРАВЛЕНИЯ БАГА: */
+    -webkit-tap-highlight-color: transparent; /* Убирает дефолтную вспышку при нажатии на iOS/Android */
+    user-select: none; /* Предотвращает случайное выделение текста при долгом нажатии */
+}
+
+/* Жестко фиксируем цвет для всех возможных состояний ссылки */
+.floating-call-btn:visited,
+.floating-call-btn:active,
+.floating-call-btn:hover {
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .floating-call-btn:hover {
     background-color: #1B5E20;
+    color: #ffffff !important; /* Принудительно держим текст белым */
     transform: translateY(-2px);
+    text-decoration: none !important; /* Заодно убираем случайное подчеркивание */
 }
-
 .floating-call-btn:active {
     transform: translateY(0);
+    background-color: #1B5E20; /* Добавляем фон для состояния нажатия, чтобы он не "моргал" */
 }
 
 .button-icon {

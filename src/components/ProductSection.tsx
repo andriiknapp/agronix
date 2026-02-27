@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import "./ProductSection.css";
+import RSM from "../assets/rsm32.png";
 
 const PRODUCTS = [
   {
@@ -71,7 +72,7 @@ const PRODUCTS = [
   },
   {
     name: "RSM 32%",
-    image: "https://thumbs.img-sprzedajemy.pl/350x250c/78/ef/73/mocznik-46-nawoz-azotowy-569285443.jpg",
+    image: RSM,
     desc: "Płynny nawóz azotowy. Wysoce wydajny i niezwykle łatwy w równomiernej aplikacji.",
     benefits: ["3 formy azotu", "Brak strat wschodu", "Odporność na suszę"]
   },
