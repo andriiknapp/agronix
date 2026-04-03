@@ -52,6 +52,7 @@ export default function Footer() {
               <Link to="/privacy" className="footer-nav-link">Polityka Prywatności</Link>
               <Link to="/terms" className="footer-nav-link">Regulamin</Link>
               <Link to="/" className="footer-nav-link">Strona Główna</Link>
+              <Link to="/about" className="footer-nav-link">O Agronix</Link>
             </nav>
           </div>
         </div>

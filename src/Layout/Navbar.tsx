@@ -10,17 +10,6 @@ export default function Navbar() {
             <img src={logo} alt="Agronix Logo" className="brand-logo" />
           </a>
         </div>
-
-        <div className="navbar-links">
-          <a 
-            href="https://dsdmanagement.org" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="nav-link"
-          >
-            Strona sprzedawcy
-          </a>
-        </div>
       </div>
     </nav>
   );

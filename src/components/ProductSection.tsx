@@ -2,8 +2,13 @@ import { useState } from "react";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import "./ProductSection.css";
 import RSM from "../assets/rsm32.png";
+import SRUTA_GRAN from "../assets/sruta_slonecznikowa_granulowana.jpg";
+import SRUTA_SOJ from "../assets/sruta_sojowa.jpg";
+import SRUTA_SOJ_BIG from "../assets/sruta_sojowa_bigbag.png";
+import SRUTA_SLON from "../assets/sruta_slonecznikowa.jpg";
+import SRUTA_SLON_BIG from "../assets/stuta_slonecznikowa_bigbag.png";
 
-const PRODUCTS = [
+const NAWOZY = [
   {
     name: "Sól potasowa 60%",
     image: "https://nodral.com/upload/iblock/5a6/v4d1mzuajfmwm31icvtj2aeq3bcowx9r.webp",
@@ -138,9 +143,57 @@ const PRODUCTS = [
   }
 ];
 
+const PASZE = [
+  {
+    name: "Śruta sojowa (HI PRO 46-48%) luzem",
+    image: SRUTA_SOJ,
+    desc: "Wysokobiałkowa śruta sojowa dostarczana luzem. Idealne źródło białka do bilansowania pasz.",
+    benefits: ["HI PRO 46-48% białka", "Dostawa luzem", "Wysoka przyswajalność"]
+  },
+  {
+    name: "Śruta sojowa (HI PRO 46-48%) w big bagach",
+    image: SRUTA_SOJ_BIG,
+    desc: "Wysokobiałkowa śruta sojowa pakowana w wygodne big bagi, ułatwiające magazynowanie.",
+    benefits: ["HI PRO 46-48% białka", "Praktyczne big bagi", "Ochrona przed wilgocią"]
+  },
+  {
+    name: "Śruta słonecznikowa luzem",
+    image: SRUTA_SLON,
+    desc: "Wartościowy komponent paszowy o dobrej zawartości białka i włókna. Dostawa luzem.",
+    benefits: ["Dobre źródło białka", "Dostawa luzem", "Wysoka jakość"]
+  },
+  {
+    name: "Śruta słonecznikowa w big bagach",
+    image: SRUTA_SLON_BIG,
+    desc: "Śruta słonecznikowa konfekcjonowana w big bagi. Ułatwia transport w gospodarstwie.",
+    benefits: ["Wygodne big bagi", "Łatwy transport", "Cenne włókno"]
+  },
+  {
+    name: "Śruta słonecznikowa granulowana",
+    image: SRUTA_GRAN, 
+    desc: "Granulowana forma śruty słonecznikowej. Zmniejsza straty paszy i zapobiega pyleniu.",
+    benefits: ["Brak pylenia", "Łatwe dozowanie", "Dłuższa trwałość"]
+  },
+  {
+    name: "Inna pasza",
+    image: "https://cdn-icons-png.flaticon.com/512/2740/2740648.png",
+    desc: "Szukasz innych komponentów paszowych? Skontaktuj się z nami, znajdziemy to, czego potrzebujesz.",
+    benefits: ["Indywidualna oferta", "Szeroki wybór", "Dostępność na zapytanie"]
+  }
+];
+
 export default function ProductSection({ onNavigateToForm }: { onNavigateToForm?: () => void }) {
+  const [activeTab, setActiveTab] = useState<'nawozy' | 'pasze'>('nawozy');
   const [isExpanded, setIsExpanded] = useState(false);
-  const displayedProducts = isExpanded ? PRODUCTS : PRODUCTS.slice(0, 4);
+
+  // Zmiana zakładki resetuje stan "pokaż więcej"
+  const handleTabChange = (tab: 'nawozy' | 'pasze') => {
+    setActiveTab(tab);
+    setIsExpanded(false); 
+  };
+
+  const currentProducts = activeTab === 'nawozy' ? NAWOZY : PASZE;
+  const displayedProducts = isExpanded ? currentProducts : currentProducts.slice(0, 4);
 
   return (
     <section className="product-section" id="products">
@@ -149,33 +202,47 @@ export default function ProductSection({ onNavigateToForm }: { onNavigateToForm?
         <div className="section-header">
           <h2 className="section-title">Nasze Produkty</h2>
           <p className="section-subtitle">
-            Dostarczamy najwyższej jakości nawozy dla rolnictwa i przemysłu. 
+            Dostarczamy najwyższej jakości nawozy oraz pasze dla rolnictwa i przemysłu. 
             Gwarantujemy terminowe dostawy całosamochodowe (24t).
           </p>
+        </div>
+
+        {/* Zakładki (Tabs) */}
+        <div className="product-tabs">
+          <button 
+            className={`tab-button ${activeTab === 'nawozy' ? 'active' : ''}`}
+            onClick={() => handleTabChange('nawozy')}
+          >
+            Nawozy
+          </button>
+          <button 
+            className={`tab-button ${activeTab === 'pasze' ? 'active' : ''}`}
+            onClick={() => handleTabChange('pasze')}
+          >
+            Pasze
+          </button>
         </div>
 
         {/* Grid - 2 columns */}
         <div className="products-grid">
           {displayedProducts.map((product, idx) => {
-            // 1. Проверяем, является ли товар "Inny nawóz"
-            const isOtherFertilizer = product.name === "Inny nawóz";
+            // Reaguje na obie karty "Inne..."
+            const isCustomProduct = product.name === "Inny nawóz" || product.name === "Inna pasza";
             
             return (
               <div 
                 key={idx} 
-                className={`product-card ${isOtherFertilizer ? 'clickable-card' : ''}`}
-                // 2. Если это "Inny nawóz", добавляем обработчик клика
-                onClick={isOtherFertilizer ? onNavigateToForm : undefined}
+                className={`product-card ${isCustomProduct ? 'clickable-card' : ''}`}
+                onClick={isCustomProduct ? onNavigateToForm : undefined}
                 data-testid={`card-product-${idx}`}
-                style={isOtherFertilizer ? { cursor: 'pointer', transition: 'transform 0.2s' } : {}}
-                onMouseEnter={isOtherFertilizer ? (e) => e.currentTarget.style.transform = 'translateY(-5px)' : undefined}
-                onMouseLeave={isOtherFertilizer ? (e) => e.currentTarget.style.transform = 'translateY(0)' : undefined}
+                style={isCustomProduct ? { cursor: 'pointer', transition: 'transform 0.2s' } : {}}
+                onMouseEnter={isCustomProduct ? (e) => e.currentTarget.style.transform = 'translateY(-5px)' : undefined}
+                onMouseLeave={isCustomProduct ? (e) => e.currentTarget.style.transform = 'translateY(0)' : undefined}
               >
                 {/* Left Side */}
                 <div className="card-image-wrapper">
                   <img src={product.image} alt={product.name} className="product-image" loading="lazy" />
-                  {/* Добавим визуальную подсказку, что это кнопка */}
-                  {isOtherFertilizer && (
+                  {isCustomProduct && (
                     <div style={{
                       position: 'absolute', top: 10, right: 10, 
                       background: '#2E7D32', color: 'white', 
@@ -188,7 +255,6 @@ export default function ProductSection({ onNavigateToForm }: { onNavigateToForm?
 
                 {/* Right Side */}
                 <div className="card-content">
-                  {/* ... Emblem ... */}
                   <div className="content-inner">
                     <h3 className="product-name">{product.name}</h3>
                     <p className="product-desc">{product.desc}</p>
@@ -209,7 +275,7 @@ export default function ProductSection({ onNavigateToForm }: { onNavigateToForm?
         </div>
 
         {/* Button */}
-        {PRODUCTS.length > 4 && (
+        {currentProducts.length > 4 && (
           <div className="show-more-container">
             <button 
               className="show-more-button"

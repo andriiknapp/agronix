@@ -1,13 +1,14 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import HeroText from "../components/HeroText";
 import LeadForm from "../components/LeadForm";
 import ProductSection from "../components/ProductSection";
-import { ShieldCheck, Truck, Clock, Phone } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ShieldCheck, Truck, Clock, Phone, ArrowRight } from "lucide-react";
 import "./Home.css";
 
 export default function Home() {
   const [showFloatingBtn, setShowFloatingBtn] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formRef = useRef<any>(null);
 
   useEffect(() => {
@@ -38,15 +39,15 @@ export default function Home() {
           
           {/* 1. Левая колонка (Только текст) */}
           <div className="home-left-column">
-          <HeroText onNavigateToForm={handleNavigateToForm} />
+            <HeroText onNavigateToForm={handleNavigateToForm} />
           </div>
 
           {/* 2. Правая колонка (Форма) */}
           <div className="home-right-column">
-          <LeadForm ref={formRef} />
+            <LeadForm ref={formRef} />
           </div>
           
-          {/* 3. Trust Signals (Теперь идут после формы в HTML, но на десктопе встанут слева через CSS) */}
+          {/* 3. Trust Signals */}
           <div className="trust-signals-container">
             <div className="trust-signals">
               <div className="trust-card">
@@ -83,7 +84,22 @@ export default function Home() {
 
         </div>
 
+        {/* Продукты */}
         <ProductSection onNavigateToForm={handleNavigateToForm} />
+
+        {/* НОВЫЙ БЛОК: Превью "О фирме" */}
+        <section className="about-preview-section">
+          <div className="about-preview-container">
+            <h2 className="preview-title">O firmie AGRONIX</h2>
+            <p className="preview-text">
+            Jesteśmy firmą z wieloletnim doświadczeniem, specjalizującą się w handlu nawozami oraz surowcami dla rolnictwa i przemysłu. Naszą misją jest wspieranie nowoczesnego rolnictwa poprzez dostarczanie wysokiej jakości produktów w konkurencyjnych cenach.
+            </p>
+            <Link to="/about" className="preview-button">
+              Dowiedz się więcej <ArrowRight size={18} />
+            </Link>
+          </div>
+        </section>
+
       </main>
 
       {/* Floating Action Button for Mobile */}

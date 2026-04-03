@@ -18,7 +18,7 @@ export default function HeroText({ onNavigateToForm }: HeroTextProps) {
     <header className="hero-header">
       <div className="hero-content">
         <h1 className="hero-title">
-          Nawozy – sprzedaż hurtowa
+          Nawozy | Pasze – sprzedaż hurtowa
           <span className="hero-highlight">Cały samochód | Szybka wycena</span>
         </h1>
         <p className="hero-subtitle">
