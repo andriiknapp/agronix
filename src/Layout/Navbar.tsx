@@ -10,6 +10,9 @@ export default function Navbar() {
             <img src={logo} alt="Agronix Logo" className="brand-logo" />
           </a>
         </div>
+        <div className="navbar-links">
+          <a href="/about" className="nav-link">About</a>
+        </div>
       </div>
     </nav>
   );
